@@ -2,24 +2,45 @@
 
 App de estudio interactiva para la carrera de Ingeniería en Sistemas de la Información.
 
+## Stack
+
+| Capa | Tecnología |
+|------|-----------|
+| Framework | React 18 |
+| Build | Vite 5 |
+| Estilos | Tailwind CSS v3 |
+| Componentes UI | shadcn/ui (Radix UI) |
+| Íconos | lucide-react |
+| Deploy | Railway (`npm run preview`) |
+
 ## Estructura del proyecto
 
 ```
 src/
 ├── App.jsx                          ← Navegación global (home / materia / clase)
-├── index.css                        ← Design system completo
+├── main.jsx
+├── index.css                        ← Tailwind directives + CSS variables del tema
+├── lib/
+│   └── utils.js                     ← Función cn() para combinar clases Tailwind
+├── components/
+│   ├── ui/                          ← Componentes shadcn/ui (no modificar)
+│   │   ├── accordion.jsx
+│   │   ├── badge.jsx
+│   │   ├── button.jsx
+│   │   ├── card.jsx
+│   │   ├── progress.jsx
+│   │   └── tabs.jsx
+│   ├── Accordion.jsx                ← Wrapper sobre shadcn Accordion
+│   ├── Flashcards.jsx
+│   ├── Header.jsx
+│   ├── Quiz.jsx
+│   ├── SystemDiagram.jsx
+│   └── Timeline.jsx
 ├── data/
 │   ├── subjects.js                  ← Registro de todas las materias
 │   └── <slug-materia>/
 │       ├── clase1.js                ← Contenido de cada clase
 │       └── clase2.js
-├── components/                      ← Componentes reutilizables
-│   ├── Header.jsx
-│   ├── Accordion.jsx
-│   ├── Flashcards.jsx
-│   ├── Quiz.jsx
-│   ├── SystemDiagram.jsx
-│   └── Timeline.jsx
 └── views/
     ├── Home.jsx                     ← Pantalla principal (grilla de materias)
     ├── SubjectHome.jsx              ← Vista de una materia (lista de clases)
@@ -30,7 +51,6 @@ src/
 
 ```
 Home  →  SubjectHome  →  ClassView
- (/)       /materia        /materia/clase
 ```
 
 El estado de navegación vive en `App.jsx` como un objeto:
@@ -47,15 +67,36 @@ El estado de navegación vive en `App.jsx` como un objeto:
 - **Nueva materia:** ver [adding-content.md](./adding-content.md)
 - **Estructura de datos:** ver [data-structure.md](./data-structure.md)
 
-## Componentes disponibles
+## Componentes de aplicación
 
 | Componente | Descripción |
 |---|---|
-| [Accordion](./components/Accordion.md) | Secciones expandibles para conceptos clave |
+| [Accordion](./components/Accordion.md) | Secciones expandibles para conceptos clave (usa Radix UI) |
 | [Flashcards](./components/Flashcards.md) | Tarjetas con flip para repaso rápido |
 | [Quiz](./components/Quiz.md) | Preguntas de opción múltiple + desarrollo |
 | [Timeline](./components/Timeline.md) | Línea de tiempo de lo visto en clase |
 | [SystemDiagram](./components/SystemDiagram.md) | Diagrama visual de sistema (especial) |
+
+## Componentes shadcn/ui disponibles (`src/components/ui/`)
+
+| Componente | Variantes / notas |
+|---|---|
+| `Button` | `default`, `outline`, `secondary`, `ghost`, `link` · sizes: `default`, `sm`, `lg`, `icon` |
+| `Card` + `CardHeader` + `CardTitle` + `CardContent` | — |
+| `Badge` | `default`, `secondary`, `outline`, `indigo`, `purple`, `green`, `amber`, `rose` |
+| `Tabs` + `TabsList` + `TabsTrigger` + `TabsContent` | — |
+| `Progress` | prop `value` (0–100), gradiente primario → acento |
+| `Accordion` + `AccordionItem` + `AccordionTrigger` + `AccordionContent` | — |
+
+## Utilidad `cn()`
+
+```js
+import { cn } from '@/lib/utils'
+
+cn('base-class', condition && 'conditional-class', 'another-class')
+```
+
+Combina `clsx` + `tailwind-merge`. Usar siempre que se mezclen clases dinámicas.
 
 ## Deploy en Railway
 
