@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 60% 99%;
+    --foreground: 243 47% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 243 47% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 243 47% 20%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 243 40% 95%;
+    --secondary-foreground: 243 75% 45%;
+    --muted: 240 20% 96%;
+    --muted-foreground: 240 10% 52%;
+    --accent: 263 80% 58%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 243 35% 90%;
+    --input: 243 35% 90%;
+    --ring: 243 75% 59%;
+    --radius: 0.75rem;
+  }
+
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  a { @apply no-underline; }
+}
+
+@layer utilities {
+  .perspective-1200 { perspective: 1200px; }
+  .preserve-3d      { transform-style: preserve-3d; }
+  .backface-hidden  { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .rotate-y-180     { transform: rotateY(180deg); }
+  .transition-flip  { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+}
